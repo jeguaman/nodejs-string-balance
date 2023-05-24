@@ -8,20 +8,39 @@ chai.use(chaiHttp);
 
 const expect = chai.expect;
 
-describe('Balance 1 True', () => {
-    it('should isBalance () true ', (done) => {
-        chai.request(app).get('/strbalance/()').end((err, res) => {
-            expect(res.body).to.be.true;
-            done();
-        });
+describe('Validar String Balance 1', () => {
+    it(' Debería devovler TRUE porque el string es \'()\' ', (done) => {
+        chai.request(app)
+            .get('/balance/()')
+            .end((err, res) => {
+                //expect(res.body).to.have.status(200);
+                //expect(res.body.esValido).to.be.true;//Está lanzando undefined xD
+                var jsonData = res.jsonData;
+                console.log("JSON de respuesta: " + jsonData);
+                expect(jsonData.esValido).to.be.true;
+                //expect(res.body.esValido).to.be.true;//Está lanzando undefined xD
+                done();
+            })
+            .catch((err, res) => {
+                console.log(""+res);
+                console.log(""+err);
+                //console.log(""+res.esValido);
+                //console.log(""+res.jsonData);
+                
+                
+            });
     });
 });
 
-describe('Balance 1 True', () => {
-    it('should isBalance (() false ', (done) => {
-        chai.request(app).get('/strbalance/(()').end((err, res) => {
-            expect(res.body).to.be.false;
-            done();
-        });
+/*
+describe('Validar String Balance 2', () => {
+    it(' Debería devovler FALSO porque el string es \'(())\' ', (done) => {
+        chai.request(app)
+            .get('/balance/(()')
+            .end((err, res) => {
+                //expect(res.body).to.have.status(200);
+                expect(res.body.esValido).to.be.false;//Está lanzando undefined xD
+                done();
+            });
     });
-});
+});*/

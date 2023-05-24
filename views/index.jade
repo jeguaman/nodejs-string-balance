@@ -1,5 +1,30 @@
 extends layout
+//script(src='/javascripts/balance-cliente.js')
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #wrapper 
+    h1= title
+    //p Welcome to #{title}
+    p Verificar si el valor enviado es balanceado o no según los agrupadores.
+
+  #display
+     form(method='get', action="/balance/")
+                  | Ingrese el valor a verificar:
+                  div
+                      input(id='txtString', type='text', name='value')
+                      input(type='submit', value='Validar')       
+
+    h1 Consumo de webservice con GET
+    form(action="/balance" method="get")
+      label(for="value") Parámetro:
+      input#parametro(type="text" name="value" required)
+      button(type="submit") Enviar
+
+    if respuesta
+      h2 Respuesta del webservice
+      p= respuesta
+
+    if error
+      h2 Error en la solicitud
+      p= error
+              
